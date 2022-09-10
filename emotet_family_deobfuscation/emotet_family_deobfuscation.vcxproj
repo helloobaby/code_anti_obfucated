@@ -161,6 +161,10 @@
     <ClCompile Include="emotet_family_deobfuscation.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="main.ii" />
+    <None Include="main.ii_back1" />
+    <None Include="main_optimize.ii" />
+    <None Include="main_optimize.ii.s" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

@@ -1,0 +1,733 @@
+; ModuleID = 'emotet'
+source_filename = "emotet"
+target datalayout = "e-p:32:32-f64:32:64-f80:32-n8:16:32-S128"
+
+@0 = internal global i64 0
+@cf = internal global i1 false
+@pf = internal global i1 false
+@az = internal global i1 false
+@zf = internal global i1 false
+@sf = internal global i1 false
+@tf = internal global i1 false
+@if = internal global i1 false
+@df = internal global i1 false
+@of = internal global i1 false
+@iopl = internal global i2 0
+@nt = internal global i1 false
+@rf = internal global i1 false
+@vm = internal global i1 false
+@ac = internal global i1 false
+@vif = internal global i1 false
+@vip = internal global i1 false
+@id = internal global i1 false
+@eflags = internal global i32 0
+@ss = internal global i16 0
+@cs = internal global i16 0
+@ds = internal global i16 0
+@es = internal global i16 0
+@fs = internal global i16 0
+@gs = internal global i16 0
+@st0 = internal global x86_fp80 0xK00000000000000000000
+@st1 = internal global x86_fp80 0xK00000000000000000000
+@st2 = internal global x86_fp80 0xK00000000000000000000
+@st3 = internal global x86_fp80 0xK00000000000000000000
+@st4 = internal global x86_fp80 0xK00000000000000000000
+@st5 = internal global x86_fp80 0xK00000000000000000000
+@st6 = internal global x86_fp80 0xK00000000000000000000
+@st7 = internal global x86_fp80 0xK00000000000000000000
+@fpu_stat_IE = internal global i1 false
+@fpu_stat_DE = internal global i1 false
+@fpu_stat_ZE = internal global i1 false
+@fpu_stat_OE = internal global i1 false
+@fpu_stat_UE = internal global i1 false
+@fpu_stat_PE = internal global i1 false
+@fpu_stat_SF = internal global i1 false
+@fpu_stat_ES = internal global i1 false
+@fpu_stat_C0 = internal global i1 false
+@fpu_stat_C1 = internal global i1 false
+@fpu_stat_C2 = internal global i1 false
+@fpu_stat_C3 = internal global i1 false
+@fpu_stat_TOP = internal global i3 0
+@fpu_stat_B = internal global i1 false
+@fpu_control_IM = internal global i1 false
+@fpu_control_DM = internal global i1 false
+@fpu_control_ZM = internal global i1 false
+@fpu_control_OM = internal global i1 false
+@fpu_control_UM = internal global i1 false
+@fpu_control_PM = internal global i1 false
+@fpu_control_PC = internal global i2 0
+@fpu_control_RC = internal global i2 0
+@fpu_control_X = internal global i1 false
+@fp0 = internal global double 0.000000e+00
+@fp1 = internal global double 0.000000e+00
+@fp2 = internal global double 0.000000e+00
+@fp3 = internal global double 0.000000e+00
+@fp4 = internal global double 0.000000e+00
+@fp5 = internal global double 0.000000e+00
+@fp6 = internal global double 0.000000e+00
+@fp7 = internal global double 0.000000e+00
+@k0 = internal global i64 0
+@k1 = internal global i64 0
+@k2 = internal global i64 0
+@k3 = internal global i64 0
+@k4 = internal global i64 0
+@k5 = internal global i64 0
+@k6 = internal global i64 0
+@k7 = internal global i64 0
+@mm0 = internal global i64 0
+@mm1 = internal global i64 0
+@mm2 = internal global i64 0
+@mm3 = internal global i64 0
+@mm4 = internal global i64 0
+@mm5 = internal global i64 0
+@mm6 = internal global i64 0
+@mm7 = internal global i64 0
+@xmm0 = internal global i128 0
+@xmm1 = internal global i128 0
+@xmm2 = internal global i128 0
+@xmm3 = internal global i128 0
+@xmm4 = internal global i128 0
+@xmm5 = internal global i128 0
+@xmm6 = internal global i128 0
+@xmm7 = internal global i128 0
+@xmm8 = internal global i128 0
+@xmm9 = internal global i128 0
+@xmm10 = internal global i128 0
+@xmm11 = internal global i128 0
+@xmm12 = internal global i128 0
+@xmm13 = internal global i128 0
+@xmm14 = internal global i128 0
+@xmm15 = internal global i128 0
+@xmm16 = internal global i128 0
+@xmm17 = internal global i128 0
+@xmm18 = internal global i128 0
+@xmm19 = internal global i128 0
+@xmm20 = internal global i128 0
+@xmm21 = internal global i128 0
+@xmm22 = internal global i128 0
+@xmm23 = internal global i128 0
+@xmm24 = internal global i128 0
+@xmm25 = internal global i128 0
+@xmm26 = internal global i128 0
+@xmm27 = internal global i128 0
+@xmm28 = internal global i128 0
+@xmm29 = internal global i128 0
+@xmm30 = internal global i128 0
+@xmm31 = internal global i128 0
+@ymm0 = internal global i256 0
+@ymm1 = internal global i256 0
+@ymm2 = internal global i256 0
+@ymm3 = internal global i256 0
+@ymm4 = internal global i256 0
+@ymm5 = internal global i256 0
+@ymm6 = internal global i256 0
+@ymm7 = internal global i256 0
+@ymm8 = internal global i256 0
+@ymm9 = internal global i256 0
+@ymm10 = internal global i256 0
+@ymm11 = internal global i256 0
+@ymm12 = internal global i256 0
+@ymm13 = internal global i256 0
+@ymm14 = internal global i256 0
+@ymm15 = internal global i256 0
+@ymm16 = internal global i256 0
+@ymm17 = internal global i256 0
+@ymm18 = internal global i256 0
+@ymm19 = internal global i256 0
+@ymm20 = internal global i256 0
+@ymm21 = internal global i256 0
+@ymm22 = internal global i256 0
+@ymm23 = internal global i256 0
+@ymm24 = internal global i256 0
+@ymm25 = internal global i256 0
+@ymm26 = internal global i256 0
+@ymm27 = internal global i256 0
+@ymm28 = internal global i256 0
+@ymm29 = internal global i256 0
+@ymm30 = internal global i256 0
+@ymm31 = internal global i256 0
+@zmm0 = internal global i512 0
+@zmm1 = internal global i512 0
+@zmm2 = internal global i512 0
+@zmm3 = internal global i512 0
+@zmm4 = internal global i512 0
+@zmm5 = internal global i512 0
+@zmm6 = internal global i512 0
+@zmm7 = internal global i512 0
+@zmm8 = internal global i512 0
+@zmm9 = internal global i512 0
+@zmm10 = internal global i512 0
+@zmm11 = internal global i512 0
+@zmm12 = internal global i512 0
+@zmm13 = internal global i512 0
+@zmm14 = internal global i512 0
+@zmm15 = internal global i512 0
+@zmm16 = internal global i512 0
+@zmm17 = internal global i512 0
+@zmm18 = internal global i512 0
+@zmm19 = internal global i512 0
+@zmm20 = internal global i512 0
+@zmm21 = internal global i512 0
+@zmm22 = internal global i512 0
+@zmm23 = internal global i512 0
+@zmm24 = internal global i512 0
+@zmm25 = internal global i512 0
+@zmm26 = internal global i512 0
+@zmm27 = internal global i512 0
+@zmm28 = internal global i512 0
+@zmm29 = internal global i512 0
+@zmm30 = internal global i512 0
+@zmm31 = internal global i512 0
+@dr0 = internal global i32 0
+@dr1 = internal global i32 0
+@dr2 = internal global i32 0
+@dr3 = internal global i32 0
+@dr4 = internal global i32 0
+@dr5 = internal global i32 0
+@dr6 = internal global i32 0
+@dr7 = internal global i32 0
+@dr8 = internal global i32 0
+@dr9 = internal global i32 0
+@dr10 = internal global i32 0
+@dr11 = internal global i32 0
+@dr12 = internal global i32 0
+@dr13 = internal global i32 0
+@dr14 = internal global i32 0
+@dr15 = internal global i32 0
+@cr0 = internal global i32 0
+@cr1 = internal global i32 0
+@cr2 = internal global i32 0
+@cr3 = internal global i32 0
+@cr4 = internal global i32 0
+@cr5 = internal global i32 0
+@cr6 = internal global i32 0
+@cr7 = internal global i32 0
+@cr8 = internal global i32 0
+@cr9 = internal global i32 0
+@cr10 = internal global i32 0
+@cr11 = internal global i32 0
+@cr12 = internal global i32 0
+@cr13 = internal global i32 0
+@cr14 = internal global i32 0
+@cr15 = internal global i32 0
+@fpsw = internal global i32 0
+@eax = internal global i32 0
+@ecx = internal global i32 0
+@edx = internal global i32 0
+@ebx = internal global i32 0
+@esp = internal global i32 0
+@ebp = internal global i32 0
+@esi = internal global i32 0
+@edi = internal global i32 0
+@eip = internal global i32 0
+@eiz = internal global i32 0
+
+define i32 @sub_36f7(i32, i32, i32, i32) {
+entry:
+  store volatile i64 4194304, i64* @0, align 8
+  %4 = load i32, i32* @ebp, align 4
+  %5 = load i32, i32* @esp, align 4
+  %6 = add i32 %5, -4
+  %7 = inttoptr i32 %6 to i32*
+  store i32 %4, i32* %7, align 4
+  store i32 %6, i32* @esp, align 4
+  store volatile i64 4194305, i64* @0, align 8
+  store i32 %6, i32* @ebp, align 4
+  store volatile i64 4194307, i64* @0, align 8
+  %8 = add i32 %5, -20
+  %9 = icmp ult i32 %6, 16
+  %10 = sub i32 19, %5
+  %11 = and i32 %6, %10
+  %12 = icmp slt i32 %11, 0
+  store i1 false, i1* @az, align 1
+  store i1 %9, i1* @cf, align 1
+  store i1 %12, i1* @of, align 1
+  %13 = icmp eq i32 %8, 0
+  store i1 %13, i1* @zf, align 1
+  %14 = icmp slt i32 %8, 0
+  store i1 %14, i1* @sf, align 1
+  %15 = trunc i32 %8 to i8
+  %16 = call i8 @llvm.ctpop.i8(i8 %15), !range !0
+  %17 = and i8 %16, 1
+  %18 = icmp eq i8 %17, 0
+  store i1 %18, i1* @pf, align 1
+  store i32 %8, i32* @esp, align 4
+  store volatile i64 4194310, i64* @0, align 8
+  %19 = load i32, i32* @esi, align 4
+  %20 = add i32 %5, -24
+  %21 = inttoptr i32 %20 to i32*
+  store i32 %19, i32* %21, align 4
+  store i32 %20, i32* @esp, align 4
+  store volatile i64 4194311, i64* @0, align 8
+  store i1 false, i1* @az, align 1
+  store i1 false, i1* @cf, align 1
+  store i1 false, i1* @of, align 1
+  store i1 true, i1* @zf, align 1
+  store i1 false, i1* @sf, align 1
+  store i1 true, i1* @pf, align 1
+  store i32 0, i32* @esi, align 4
+  store volatile i64 4194313, i64* @0, align 8
+  %22 = add i32 %20, -4
+  %23 = inttoptr i32 %22 to i32*
+  store i32 0, i32* %23, align 4
+  store i32 %22, i32* @esp, align 4
+  store volatile i64 4194314, i64* @0, align 8
+  %24 = load i32, i32* @ebp, align 4
+  %25 = add i32 %24, 24
+  %26 = inttoptr i32 %25 to i32*
+  %27 = load i32, i32* %26, align 4
+  %28 = add i32 %20, -8
+  %29 = inttoptr i32 %28 to i32*
+  store i32 %27, i32* %29, align 4
+  store i32 %28, i32* @esp, align 4
+  store volatile i64 4194317, i64* @0, align 8
+  %30 = load i32, i32* @ebp, align 4
+  %31 = add i32 %30, 20
+  %32 = inttoptr i32 %31 to i32*
+  %33 = load i32, i32* %32, align 4
+  %34 = add i32 %20, -12
+  %35 = inttoptr i32 %34 to i32*
+  store i32 %33, i32* %35, align 4
+  store i32 %34, i32* @esp, align 4
+  store volatile i64 4194320, i64* @0, align 8
+  %36 = load i32, i32* @esi, align 4
+  %37 = add i32 %20, -16
+  %38 = inttoptr i32 %37 to i32*
+  store i32 %36, i32* %38, align 4
+  store i32 %37, i32* @esp, align 4
+  store volatile i64 4194321, i64* @0, align 8
+  %39 = load i32, i32* @ebp, align 4
+  %40 = add i32 %39, 12
+  %41 = inttoptr i32 %40 to i32*
+  %42 = load i32, i32* %41, align 4
+  %43 = add i32 %20, -20
+  %44 = inttoptr i32 %43 to i32*
+  store i32 %42, i32* %44, align 4
+  store i32 %43, i32* @esp, align 4
+  store volatile i64 4194324, i64* @0, align 8
+  %45 = load i32, i32* @ebp, align 4
+  %46 = add i32 %45, 8
+  %47 = inttoptr i32 %46 to i32*
+  %48 = load i32, i32* %47, align 4
+  %49 = add i32 %20, -24
+  %50 = inttoptr i32 %49 to i32*
+  store i32 %48, i32* %50, align 4
+  store i32 %49, i32* @esp, align 4
+  store volatile i64 4194327, i64* @0, align 8
+  %51 = load i32, i32* @esi, align 4
+  %52 = add i32 %20, -28
+  %53 = inttoptr i32 %52 to i32*
+  store i32 %51, i32* %53, align 4
+  store i32 %52, i32* @esp, align 4
+  store volatile i64 4194328, i64* @0, align 8
+  %54 = load i32, i32* @esi, align 4
+  %55 = add i32 %20, -32
+  %56 = inttoptr i32 %55 to i32*
+  store i32 %54, i32* %56, align 4
+  store i32 %55, i32* @esp, align 4
+  store volatile i64 4194329, i64* @0, align 8
+  %57 = add i32 %20, -36
+  %58 = inttoptr i32 %57 to i32*
+  store i32 4194334, i32* %58, align 4
+  store i32 %57, i32* @esp, align 4
+  call void @1(i32 4317740)
+  store volatile i64 4194334, i64* @0, align 8
+  %59 = load i32, i32* @ebp, align 4
+  %60 = add i32 %59, -16
+  %61 = inttoptr i32 %60 to i32*
+  store i32 15246578, i32* %61, align 4
+  store volatile i64 4194341, i64* @0, align 8
+  %62 = load i32, i32* @esp, align 4
+  %63 = add i32 %62, 32
+  %64 = icmp ugt i32 %62, -33
+  %65 = xor i32 %62, -2147483648
+  %66 = and i32 %63, %65
+  %67 = icmp slt i32 %66, 0
+  store i1 false, i1* @az, align 1
+  store i1 %64, i1* @cf, align 1
+  store i1 %67, i1* @of, align 1
+  %68 = icmp eq i32 %63, 0
+  store i1 %68, i1* @zf, align 1
+  %69 = icmp slt i32 %63, 0
+  store i1 %69, i1* @sf, align 1
+  %70 = trunc i32 %63 to i8
+  %71 = call i8 @llvm.ctpop.i8(i8 %70), !range !0
+  %72 = and i8 %71, 1
+  %73 = icmp eq i8 %72, 0
+  store i1 %73, i1* @pf, align 1
+  store i32 %63, i32* @esp, align 4
+  store volatile i64 4194344, i64* @0, align 8
+  %74 = load i32, i32* @ebp, align 4
+  %75 = add i32 %74, -16
+  %76 = inttoptr i32 %75 to i32*
+  %77 = load i32, i32* %76, align 4
+  %78 = xor i32 %77, 157808766
+  store i1 false, i1* @az, align 1
+  store i1 false, i1* @cf, align 1
+  store i1 false, i1* @of, align 1
+  %79 = icmp eq i32 %78, 0
+  store i1 %79, i1* @zf, align 1
+  %80 = icmp slt i32 %78, 0
+  store i1 %80, i1* @sf, align 1
+  %81 = trunc i32 %78 to i8
+  %82 = call i8 @llvm.ctpop.i8(i8 %81), !range !0
+  %83 = and i8 %82, 1
+  %84 = icmp eq i8 %83, 0
+  store i1 %84, i1* @pf, align 1
+  store i32 %78, i32* %76, align 4
+  store volatile i64 4194351, i64* @0, align 8
+  store i1 false, i1* @az, align 1
+  store i1 false, i1* @cf, align 1
+  store i1 false, i1* @of, align 1
+  store i1 true, i1* @zf, align 1
+  store i1 false, i1* @sf, align 1
+  store i1 true, i1* @pf, align 1
+  store i32 0, i32* @edx, align 4
+  store volatile i64 4194353, i64* @0, align 8
+  %85 = load i32, i32* @ebp, align 4
+  %86 = add i32 %85, -16
+  %87 = inttoptr i32 %86 to i32*
+  %88 = load i32, i32* %87, align 4
+  %89 = xor i32 %88, 159923685
+  store i1 false, i1* @az, align 1
+  store i1 false, i1* @cf, align 1
+  store i1 false, i1* @of, align 1
+  %90 = icmp eq i32 %89, 0
+  store i1 %90, i1* @zf, align 1
+  %91 = icmp slt i32 %89, 0
+  store i1 %91, i1* @sf, align 1
+  %92 = trunc i32 %89 to i8
+  %93 = call i8 @llvm.ctpop.i8(i8 %92), !range !0
+  %94 = and i8 %93, 1
+  %95 = icmp eq i8 %94, 0
+  store i1 %95, i1* @pf, align 1
+  store i32 %89, i32* %87, align 4
+  store volatile i64 4194360, i64* @0, align 8
+  %96 = load i32, i32* @ebp, align 4
+  %97 = add i32 %96, -12
+  %98 = inttoptr i32 %97 to i32*
+  store i32 16386218, i32* %98, align 4
+  store volatile i64 4194367, i64* @0, align 8
+  %99 = load i32, i32* @ebp, align 4
+  %100 = add i32 %99, -12
+  %101 = inttoptr i32 %100 to i32*
+  %102 = load i32, i32* %101, align 4
+  %103 = shl i32 %102, 6
+  %104 = icmp eq i32 %103, 0
+  store i1 %104, i1* @zf, align 1
+  %105 = icmp slt i32 %103, 0
+  store i1 %105, i1* @sf, align 1
+  %106 = trunc i32 %103 to i8
+  %107 = call i8 @llvm.ctpop.i8(i8 %106), !range !1
+  %108 = and i8 %107, 1
+  %109 = icmp eq i8 %108, 0
+  store i1 %109, i1* @pf, align 1
+  store i32 %103, i32* %101, align 4
+  %110 = and i32 %102, 67108864
+  %111 = icmp ne i32 %110, 0
+  store i1 %111, i1* @cf, align 1
+  store i1 false, i1* @of, align 1
+  store volatile i64 4194371, i64* @0, align 8
+  %112 = load i32, i32* @ebp, align 4
+  %113 = add i32 %112, -12
+  %114 = inttoptr i32 %113 to i32*
+  %115 = load i32, i32* %114, align 4
+  %116 = xor i32 %115, 1048703726
+  store i1 false, i1* @az, align 1
+  store i1 false, i1* @cf, align 1
+  store i1 false, i1* @of, align 1
+  %117 = icmp eq i32 %116, 0
+  store i1 %117, i1* @zf, align 1
+  %118 = icmp slt i32 %116, 0
+  store i1 %118, i1* @sf, align 1
+  %119 = trunc i32 %116 to i8
+  %120 = call i8 @llvm.ctpop.i8(i8 %119), !range !0
+  %121 = and i8 %120, 1
+  %122 = icmp eq i8 %121, 0
+  store i1 %122, i1* @pf, align 1
+  store i32 %116, i32* %114, align 4
+  store volatile i64 4194378, i64* @0, align 8
+  %123 = load i32, i32* @ebp, align 4
+  %124 = add i32 %123, -8
+  %125 = inttoptr i32 %124 to i32*
+  store i32 229867, i32* %125, align 4
+  store volatile i64 4194385, i64* @0, align 8
+  %126 = load i32, i32* @ebp, align 4
+  %127 = add i32 %126, -8
+  %128 = inttoptr i32 %127 to i32*
+  %129 = load i32, i32* %128, align 4
+  %130 = add i32 %129, 7838
+  %131 = and i32 %129, 14
+  %132 = icmp ne i32 %131, 0
+  %133 = icmp ugt i32 %129, -7839
+  %134 = xor i32 %129, -2147483648
+  %135 = and i32 %130, %134
+  %136 = icmp slt i32 %135, 0
+  store i1 %132, i1* @az, align 1
+  store i1 %133, i1* @cf, align 1
+  store i1 %136, i1* @of, align 1
+  %137 = icmp eq i32 %130, 0
+  store i1 %137, i1* @zf, align 1
+  %138 = icmp slt i32 %130, 0
+  store i1 %138, i1* @sf, align 1
+  %139 = trunc i32 %130 to i8
+  %140 = call i8 @llvm.ctpop.i8(i8 %139), !range !0
+  %141 = and i8 %140, 1
+  %142 = icmp eq i8 %141, 0
+  store i1 %142, i1* @pf, align 1
+  store i32 %130, i32* %128, align 4
+  store volatile i64 4194392, i64* @0, align 8
+  %143 = load i32, i32* @ebp, align 4
+  %144 = add i32 %143, -8
+  %145 = inttoptr i32 %144 to i32*
+  %146 = load i32, i32* %145, align 4
+  %147 = xor i32 %146, 985971
+  store i1 false, i1* @az, align 1
+  store i1 false, i1* @cf, align 1
+  store i1 false, i1* @of, align 1
+  %148 = icmp eq i32 %147, 0
+  store i1 %148, i1* @zf, align 1
+  %149 = icmp slt i32 %147, 0
+  store i1 %149, i1* @sf, align 1
+  %150 = trunc i32 %147 to i8
+  %151 = call i8 @llvm.ctpop.i8(i8 %150), !range !0
+  %152 = and i8 %151, 1
+  %153 = icmp eq i8 %152, 0
+  store i1 %153, i1* @pf, align 1
+  store i32 %147, i32* %145, align 4
+  store volatile i64 4194399, i64* @0, align 8
+  %154 = load i32, i32* @ebp, align 4
+  %155 = add i32 %154, -4
+  %156 = inttoptr i32 %155 to i32*
+  store i32 11850407, i32* %156, align 4
+  store volatile i64 4194406, i64* @0, align 8
+  %157 = load i32, i32* @ebp, align 4
+  %158 = add i32 %157, -4
+  %159 = inttoptr i32 %158 to i32*
+  %160 = load i32, i32* %159, align 4
+  store i32 %160, i32* @eax, align 4
+  store volatile i64 4194409, i64* @0, align 8
+  %161 = load i32, i32* @esp, align 4
+  %162 = add i32 %161, -4
+  %163 = inttoptr i32 %162 to i32*
+  store i32 80, i32* %163, align 4
+  store i32 %162, i32* @esp, align 4
+  store volatile i64 4194411, i64* @0, align 8
+  %164 = load i32, i32* %163, align 4
+  store i32 %164, i32* @ecx, align 4
+  store i32 %161, i32* @esp, align 4
+  store volatile i64 4194412, i64* @0, align 8
+  %165 = load i32, i32* @eax, align 4
+  %166 = zext i32 %165 to i64
+  %167 = load i32, i32* @edx, align 4
+  %168 = zext i32 %167 to i64
+  %169 = shl nuw i64 %168, 32
+  %170 = or i64 %169, %166
+  %171 = zext i32 %164 to i64
+  %172 = udiv i64 %170, %171
+  %173 = trunc i64 %172 to i32
+  store i32 %173, i32* @eax, align 4
+  %174 = urem i64 %170, %171
+  %175 = trunc i64 %174 to i32
+  store i32 %175, i32* @edx, align 4
+  store volatile i64 4194414, i64* @0, align 8
+  store i32 -1668266032, i32* %163, align 4
+  store i32 %162, i32* @esp, align 4
+  store volatile i64 4194419, i64* @0, align 8
+  %176 = load i32, i32* @eax, align 4
+  %177 = load i32, i32* @ebp, align 4
+  %178 = add i32 %177, -4
+  %179 = inttoptr i32 %178 to i32*
+  store i32 %176, i32* %179, align 4
+  store volatile i64 4194422, i64* @0, align 8
+  %180 = load i32, i32* @ebp, align 4
+  %181 = add i32 %180, -4
+  %182 = inttoptr i32 %181 to i32*
+  %183 = load i32, i32* %182, align 4
+  %184 = lshr i32 %183, 12
+  %185 = icmp eq i32 %184, 0
+  store i1 %185, i1* @zf, align 1
+  store i1 false, i1* @sf, align 1
+  %186 = trunc i32 %184 to i8
+  %187 = call i8 @llvm.ctpop.i8(i8 %186), !range !0
+  %188 = and i8 %187, 1
+  %189 = icmp eq i8 %188, 0
+  store i1 %189, i1* @pf, align 1
+  store i32 %184, i32* %182, align 4
+  %190 = and i32 %183, 2048
+  %191 = icmp ne i32 %190, 0
+  store i1 %191, i1* @cf, align 1
+  store i1 false, i1* @of, align 1
+  store volatile i64 4194426, i64* @0, align 8
+  %192 = load i32, i32* @ebp, align 4
+  %193 = add i32 %192, -4
+  %194 = inttoptr i32 %193 to i32*
+  %195 = load i32, i32* %194, align 4
+  %196 = xor i32 %195, 508039
+  store i1 false, i1* @az, align 1
+  store i1 false, i1* @cf, align 1
+  store i1 false, i1* @of, align 1
+  %197 = icmp eq i32 %196, 0
+  store i1 %197, i1* @zf, align 1
+  %198 = icmp slt i32 %196, 0
+  store i1 %198, i1* @sf, align 1
+  %199 = trunc i32 %196 to i8
+  %200 = call i8 @llvm.ctpop.i8(i8 %199), !range !0
+  %201 = and i8 %200, 1
+  %202 = icmp eq i8 %201, 0
+  store i1 %202, i1* @pf, align 1
+  store i32 %196, i32* %194, align 4
+  store volatile i64 4194433, i64* @0, align 8
+  %203 = load i32, i32* @ebp, align 4
+  %204 = add i32 %203, -4
+  %205 = inttoptr i32 %204 to i32*
+  %206 = load i32, i32* %205, align 4
+  store i32 %206, i32* @eax, align 4
+  store volatile i64 4194436, i64* @0, align 8
+  %207 = add i32 %203, -8
+  %208 = inttoptr i32 %207 to i32*
+  %209 = load i32, i32* %208, align 4
+  store i32 %209, i32* @eax, align 4
+  store volatile i64 4194439, i64* @0, align 8
+  %210 = add i32 %203, -12
+  %211 = inttoptr i32 %210 to i32*
+  %212 = load i32, i32* %211, align 4
+  store i32 %212, i32* @eax, align 4
+  store volatile i64 4194442, i64* @0, align 8
+  %213 = add i32 %203, -16
+  %214 = inttoptr i32 %213 to i32*
+  %215 = load i32, i32* %214, align 4
+  store i32 %215, i32* @eax, align 4
+  store volatile i64 4194445, i64* @0, align 8
+  %216 = load i32, i32* @ecx, align 4
+  %217 = load i32, i32* @esp, align 4
+  %218 = add i32 %217, -4
+  %219 = inttoptr i32 %218 to i32*
+  store i32 %216, i32* %219, align 4
+  store i32 %218, i32* @esp, align 4
+  store volatile i64 4194446, i64* @0, align 8
+  %220 = add i32 %217, -8
+  %221 = inttoptr i32 %220 to i32*
+  store i32 1989985150, i32* %221, align 4
+  store i32 %220, i32* @esp, align 4
+  store volatile i64 4194451, i64* @0, align 8
+  %222 = load i32, i32* @ecx, align 4
+  %223 = add i32 %217, -12
+  %224 = inttoptr i32 %223 to i32*
+  store i32 %222, i32* %224, align 4
+  store i32 %223, i32* @esp, align 4
+  store volatile i64 4194452, i64* @0, align 8
+  %225 = load i32, i32* @ecx, align 4
+  %226 = add i32 %217, -16
+  %227 = inttoptr i32 %226 to i32*
+  store i32 %225, i32* %227, align 4
+  store i32 %226, i32* @esp, align 4
+  store volatile i64 4194453, i64* @0, align 8
+  %228 = add i32 %217, -20
+  %229 = inttoptr i32 %228 to i32*
+  store i32 99, i32* %229, align 4
+  store i32 %228, i32* @esp, align 4
+  store volatile i64 4194455, i64* @0, align 8
+  %230 = load i32, i32* %229, align 4
+  store i32 %230, i32* @ecx, align 4
+  store i32 %226, i32* @esp, align 4
+  store volatile i64 4194456, i64* @0, align 8
+  store i32 4194461, i32* %229, align 4
+  store i32 %228, i32* @esp, align 4
+  call void @1(i32 4186130)
+  store volatile i64 4194461, i64* @0, align 8
+  %231 = load i32, i32* @esp, align 4
+  %232 = add i32 %231, 20
+  %233 = and i32 %231, 12
+  %234 = icmp eq i32 %233, 12
+  %235 = icmp ugt i32 %231, -21
+  %236 = xor i32 %231, -2147483648
+  %237 = and i32 %232, %236
+  %238 = icmp slt i32 %237, 0
+  store i1 %234, i1* @az, align 1
+  store i1 %235, i1* @cf, align 1
+  store i1 %238, i1* @of, align 1
+  %239 = icmp eq i32 %232, 0
+  store i1 %239, i1* @zf, align 1
+  %240 = icmp slt i32 %232, 0
+  store i1 %240, i1* @sf, align 1
+  %241 = trunc i32 %232 to i8
+  %242 = call i8 @llvm.ctpop.i8(i8 %241), !range !0
+  %243 = and i8 %242, 1
+  %244 = icmp eq i8 %243, 0
+  store i1 %244, i1* @pf, align 1
+  store i32 %232, i32* @esp, align 4
+  store volatile i64 4194464, i64* @0, align 8
+  %245 = load i32, i32* @esi, align 4
+  %246 = add i32 %231, 16
+  %247 = inttoptr i32 %246 to i32*
+  store i32 %245, i32* %247, align 4
+  store i32 %246, i32* @esp, align 4
+  store volatile i64 4194465, i64* @0, align 8
+  %248 = load i32, i32* @esi, align 4
+  %249 = add i32 %231, 12
+  %250 = inttoptr i32 %249 to i32*
+  store i32 %248, i32* %250, align 4
+  store i32 %249, i32* @esp, align 4
+  store volatile i64 4194466, i64* @0, align 8
+  %251 = load i32, i32* @esi, align 4
+  %252 = add i32 %231, 8
+  %253 = inttoptr i32 %252 to i32*
+  store i32 %251, i32* %253, align 4
+  store i32 %252, i32* @esp, align 4
+  store volatile i64 4194467, i64* @0, align 8
+  %254 = load i32, i32* @esi, align 4
+  %255 = add i32 %231, 4
+  %256 = inttoptr i32 %255 to i32*
+  store i32 %254, i32* %256, align 4
+  store i32 %255, i32* @esp, align 4
+  store volatile i64 4194468, i64* @0, align 8
+  %257 = inttoptr i32 %231 to i32*
+  store i32 4194470, i32* %257, align 4
+  store i32 %231, i32* @esp, align 4
+  %258 = load i32, i32* @eax, align 4
+  call void @1(i32 %258)
+  store volatile i64 4194470, i64* @0, align 8
+  %259 = load i32, i32* @esp, align 4
+  %260 = inttoptr i32 %259 to i32*
+  %261 = load i32, i32* %260, align 4
+  store i32 %261, i32* @esi, align 4
+  %262 = add i32 %259, 4
+  store i32 %262, i32* @esp, align 4
+  store volatile i64 4194471, i64* @0, align 8
+  %263 = load i32, i32* @ebp, align 4
+  store i32 %263, i32* @esp, align 4
+  store volatile i64 4194473, i64* @0, align 8
+  %264 = inttoptr i32 %263 to i32*
+  %265 = load i32, i32* %264, align 4
+  store i32 %265, i32* @ebp, align 4
+  %266 = add i32 %263, 4
+  store i32 %266, i32* @esp, align 4
+  store volatile i64 4194474, i64* @0, align 8
+  %267 = inttoptr i32 %266 to i32*
+  %268 = load i32, i32* %267, align 4
+  %269 = add i32 %263, 8
+  store i32 %269, i32* @esp, align 4
+  call void @2(i32 %268)
+  ret void
+}
+
+declare void @1(i32)
+
+declare void @2(i32)
+
+declare void @3(i32)
+
+declare void @4(i1, i32)
+
+declare void @5(i3, x86_fp80)
+
+declare x86_fp80 @6(i3)
+
+; Function Attrs: nounwind readnone speculatable
+declare i8 @llvm.ctpop.i8(i8) #0
+
+attributes #0 = { nounwind readnone speculatable }
+
+!0 = !{i8 0, i8 9}
+!1 = !{i8 0, i8 3}

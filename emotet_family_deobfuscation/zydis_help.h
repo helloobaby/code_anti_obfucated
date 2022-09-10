@@ -10,19 +10,17 @@ namespace zydis {
             g_decoder = std::make_shared<ZydisDecoder>();
             g_formatter = std::make_shared<ZydisFormatter>();
 
-#ifdef _X86_
             ZydisDecoderInit(g_decoder.get(), ZYDIS_MACHINE_MODE_LONG_COMPAT_32,
                 ZYDIS_ADDRESS_WIDTH_32);
 
             ZydisFormatterInit(g_formatter.get(),
                 ZYDIS_FORMATTER_STYLE_INTEL);
-#else
-            ZydisDecoderInit(g_decoder.get(), ZYDIS_MACHINE_MODE_LONG_64,
-                ZYDIS_ADDRESS_WIDTH_64);    //ZYDIS_STACK_WIDTH_64
 
-            ZydisFormatterInit(g_formatter.get(),
-                ZYDIS_FORMATTER_STYLE_INTEL);
-#endif
+            ZydisFormatterSetProperty(g_formatter.get(), ZYDIS_FORMATTER_PROP_FORCE_SEGMENT, ZYAN_TRUE);
+            ZydisFormatterSetProperty(g_formatter.get(), ZYDIS_FORMATTER_PROP_FORCE_SIZE, ZYAN_TRUE);
+
+            //https://github.com/zyantific/zydis/issues/27
+            ZydisFormatterSetProperty(g_formatter.get(), ZYDIS_FORMATTER_PROP_FORCE_RELATIVE_RIPREL, ZYAN_TRUE);
         }
     }
 
@@ -31,6 +29,9 @@ namespace zydis {
         return instr.mnemonic == ZYDIS_MNEMONIC_RET;
     }
 
+    bool is_call(const ZydisDecodedInstruction& instr) {
+        return instr.mnemonic == ZYDIS_MNEMONIC_CALL;
+    }
 
     void print(const ZydisDecodedInstruction& instr) {
         char buffer[256]{};

@@ -1,0 +1,1 @@
+llvm-objdump.exe --disassemble --x86-asm-syntax=intel .\main_optimize.ii.o

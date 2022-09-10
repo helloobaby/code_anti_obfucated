@@ -1,8 +1,9 @@
 ﻿/*
-* emotet家族恶意软件代码去混淆
+* emotet家族恶意软件代码去混淆（目前仅限分析x86样本）
 * 
-* x86编译分析x86样本
-* x64编译分析x64样本
+* 函数的调用约定、函数的参数多少 如何确定
+* 
+* 
 * 
 * 适用情况(所有jcc分支的地址都要在ret指令前面,因为我读取整个函数的指令以ret结尾):
 * push ebp
@@ -71,50 +72,52 @@
 #pragma comment(lib,"LLVMBitstreamReader.lib")
 #pragma comment(lib,"retdec-LLVMBitWriter.lib")
 
-//#pragma comment(lib,"LLVMCFGuard.lib")
 #pragma comment(lib,"retdec-LLVMCodeGen.lib")
 #pragma comment(lib,"retdec-LLVMCore.lib")
 
-//#pragma comment(lib,"LLVMDebugInfoCodeView.lib")
 #pragma comment(lib,"retdec-LLVMDebugInfoDWARF.lib")
-#//pragma comment(lib,"LLVMDebugInfoMSF.lib")
-//#pragma comment(lib,"LLVMDebugInfoPDB.lib")
 #pragma comment(lib,"retdec-LLVMDemangle.lib")
-
-//#pragma comment(lib,"LLVMGlobalISel.lib")
 
 #pragma comment(lib,"retdec-LLVMipo.lib")
 #pragma comment(lib,"retdec-LLVMInstCombine.lib")
-//#pragma comment(lib,"LLVMInstrumentation.lib")
-
-//#pragma comment(lib,"LLVMLinker.lib")
 
 #pragma comment(lib,"retdec-LLVMIRReader.lib")
 #pragma comment(lib,"retdec-LLVMMC.lib")
-//#pragma comment(lib,"LLVMMCDisassembler.lib")
+
 #pragma comment(lib,"retdec-LLVMMCParser.lib")
 #pragma comment(lib,"retdec-LLVMObject.lib")
 
-//#pragma comment(lib,"LLVMProfileData.lib")
-
-//#pragma comment(lib,"LLVMRemarks.lib")
-
 #pragma comment(lib,"retdec-LLVMScalarOpts.lib")
-//#pragma comment(lib,"LLVMSelectionDAG.lib")
 #pragma comment(lib,"retdec-llvm-support.lib")
 #pragma comment(lib,"retdec-LLVMSupport.lib")
-//#pragma comment(lib,"LLVMSymbolize.lib")
-
-//#pragma comment(lib,"LLVMTableGen.lib")
-//#pragma comment(lib,"LLVMTableGenGlobalISel.lib")
 #pragma comment(lib,"retdec-LLVMTarget.lib")
-//#pragma comment(lib,"LLVMTextAPI.lib")
 #pragma comment(lib,"retdec-LLVMTransformUtils.lib")
 
 #pragma comment(lib,"retdec-LLVMAsmParser.lib")
+
+
 //#pragma comment(lib,"LLVMX86CodeGen.lib")
 //#pragma comment(lib,"LLVMX86Desc.lib")
 //#pragma comment(lib,"LLVMX86Info.lib")
+//#pragma comment(lib,"LLVMX86AsmParser.lib")
+//#pragma comment(lib,"LLVMBinaryFormat.lib")
+//#pragma comment(lib,"LLVMDebugInfoCodeView.lib")
+//#pragma comment(lib,"LLVMDemangle.lib")
+//#pragma comment(lib,"LLVMTextAPI.lib")
+//#pragma comment(lib,"LLVMTableGen.lib")
+//#pragma comment(lib,"LLVMTableGenGlobalISel.lib")
+//#pragma comment(lib,"LLVMSymbolize.lib")
+//#pragma comment(lib,"LLVMSelectionDAG.lib")
+//#pragma comment(lib,"LLVMProfileData.lib")
+//#pragma comment(lib,"LLVMRemarks.lib")
+//#pragma comment(lib,"LLVMMCDisassembler.lib")
+//#pragma comment(lib,"LLVMInstrumentation.lib")
+//#pragma comment(lib,"LLVMLinker.lib")
+//#pragma comment(lib,"LLVMGlobalISel.lib")
+//#pragma comment(lib,"LLVMDebugInfoMSF.lib")
+//#pragma comment(lib,"LLVMDebugInfoPDB.lib")
+//#pragma comment(lib,"LLVMCFGuard.lib")
+//#pragma comment(lib,"LLVMCFGuard.lib")
 
 
 using namespace std;
@@ -133,8 +136,10 @@ int wmain(int argc,wchar_t* argv[])
     if (argc == 3)  
     {
         gfile = argv[1];
-        //grva = argv[2];
+        wstringstream ss(argv[2]);
+        ss >> hex >> grva;
         assert(PathFileExistsW(gfile.c_str()));
+
     }
     wcout << "[-] target file : " << gfile.c_str() << endl;
     wcout << "[-] function start : " << hex << grva << endl;
@@ -162,58 +167,75 @@ int wmain(int argc,wchar_t* argv[])
     
     while (ZYAN_SUCCESS(ZydisDecoderDecodeBuffer(g_decoder.get(), function_end, 1000, &decode_insn))) {
 
+        function_end = (char*)function_end + decode_insn.length;             //移动指令指针到下一条指令
+        function_size += decode_insn.length;
+        zydis::print(decode_insn);                                         //输出函数反汇编
 
         if (zydis::is_ret(decode_insn)) {
             break;
         }
-
-
-
-        function_end = (char*)function_end + decode_insn.length;             //移动指令指针到下一条指令
-        function_size += decode_insn.length;
-        //zydis::print(decode_insn);                                         //输出函数反汇编
     }
 
     wcout << "[-] function end : " << hex << (char*)function_end -(char*)vecFileBuf.data() << endl;
     
     //将x86转成llvm的ir
+    string function_name("sub_");
+    stringstream ss("0x");
+    ss << hex << grva;
+    function_name.append(ss.str());
+
     llvm::LLVMContext ctx;
-    llvm::Module module("emotet", ctx);
+    std::unique_ptr<llvm::Module> module(new llvm::Module("emotet", ctx));
+
+    //假设函数原型为 int f(int,int,int,int)
     auto* f = llvm::Function::Create(
-        llvm::FunctionType::get(llvm::Type::getVoidTy(ctx), false),
+        llvm::FunctionType::get(llvm::Type::getInt32Ty(ctx), 
+            {llvm::Type::getInt32Ty(ctx),llvm::Type::getInt32Ty(ctx) ,
+            llvm::Type::getInt32Ty(ctx) ,llvm::Type::getInt32Ty(ctx)  }
+            , false),
         llvm::GlobalValue::ExternalLinkage,
-        "root",
-        &module);
-    llvm::BasicBlock::Create(module.getContext(), "entry", f);
+        function_name,
+        &(*module));
+    llvm::BasicBlock::Create(module->getContext(), "entry", f);
     llvm::IRBuilder<> irb(&f->front());
     try
     {
         auto c2l = retdec::capstone2llvmir::Capstone2LlvmIrTranslator::createArch(
             CS_ARCH_X86,
-            &module,
+            &(*module),
             CS_MODE_32,
             CS_MODE_LITTLE_ENDIAN);
 
-        c2l->translate((const uint8_t*)des, function_size, grva, irb);
+        c2l->translate((const uint8_t*)des, function_size, 0x400000, irb);  //由retdec帮我们生成ir
 
-        module.print(llvm::outs(), nullptr);
+        //module.print(llvm::outs(), nullptr);
     }
     catch (...)
+
     {
         std::cerr << "Error: something went wrong!" << std::endl;
         return 1;
     }
 
-    complie(&module, f);
+    error_code ec;
+    raw_fd_ostream rawfd("main.ii",ec);
+    raw_fd_ostream rawfd2("main_optimize.ii", ec);
+    module->print(rawfd, nullptr);
+    
+    irb.CreateRetVoid();                                //run pass前记得要有ret指令，不然0xC0000005崩溃
+
+    wcout << "[-] error code " << ec.value() << endl;
+
+    add_optimize(module, f);
     
     wcout << "[-] ..............." << endl;
     wcout << "[-] optimized ....." << endl;
     wcout << "[-] ..............." << endl;
 
-    module.print(llvm::outs(), nullptr);
+    module->print(rawfd2, nullptr);
 
 
-
+    
 
 
 
